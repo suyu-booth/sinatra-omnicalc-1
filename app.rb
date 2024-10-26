@@ -23,24 +23,31 @@ get("/random/new") do
 end
 
 get("/square/results") do
-  @sq_new = params[:user_number].to_f
-  @sq_res = @sq_new**2
+  @sq_new = params[:number]
+  @sq_res = @sq_new.to_f**2
   erb(:square_r)
 end
 
 get("/square_root/results") do
+  @sqrt_new = params[:user_number]
+  @sqrt_res = @sqrt_new.to_f**0.5
   erb(:sqrt_r)
 end
 
 get("/payment/results") do
+  @years = params[:user_years]
+  @apr = params[:user_apr].to_f/100
+  @pv = params[:user_pv].to_f
+
+  @pay = @apr * @pv / (1- (1+@apr)**(-@years.to_f))
   erb(:payment_r)
 end
 
 get("/random/results") do
-  @mini = params[:user_min].to_f
-  @maxi = params[:user_max].to_f
+  @mini = params[:user_min]
+  @maxi = params[:user_max]
 
-  @randi = rand(@mini..@maxi)
+  @randi = rand(@mini.to_f..@maxi.to_f)
 
   erb(:random_r)
 end
